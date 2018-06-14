@@ -41,6 +41,30 @@ def localip4():
     return '127.0.1.1'
 
 
+@route('/latest/meta-data/instance-id')
+def instance_id():
+    response.content_type = 'text/plain; charset=UTF-8'
+    return 'i-12345678'
+
+
+@route('/latest/meta-data/placement/availability-zone')
+def instance_id():
+    response.content_type = 'text/plain; charset=UTF-8'
+    return 'us-east-1a'
+
+
+@route('/latest/meta-data/iam/info')
+def iam_info():
+    session = request.app.config.meta_get('metadata', 'obj').get_session()
+
+    return {
+        'Code':               'Success',
+		'LastUpdated':        session.expiration,
+        'InstanceProfileArn': 'arn:aws:iam::123456789012:instance-profile/ec2_metadata_mock',
+        'InstanceProfileId':  'AABBCCDDEEFFEEDDCCBBA'
+    }
+
+
 @route('/latest/meta-data/instance-type')
 def instance_type():
     response.content_type = 'text/plain; charset=UTF-8'
