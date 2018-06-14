@@ -59,7 +59,7 @@ def iam_info():
 
     return {
         'Code':               'Success',
-		'LastUpdated':        session.expiration,
+	'LastUpdated':        session.expiration,
         'InstanceProfileArn': 'arn:aws:iam::123456789012:instance-profile/ec2_metadata_mock',
         'InstanceProfileId':  'AABBCCDDEEFFEEDDCCBBA'
     }
