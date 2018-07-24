@@ -55,12 +55,15 @@ def instance_id():
 
 @route('/latest/meta-data/iam/info')
 def iam_info():
-    session = request.app.config.meta_get('metadata', 'obj').get_session()
+    metadata = request.app.config.meta_get('metadata', 'obj')
+    session = metadata.get_session()
+    account_id, role_name = metadata.profile.role_arn.split(":")[4:6]
+    profile_name = role_name.split('/')[1]
 
     return {
         'Code':               'Success',
 	'LastUpdated':        session.expiration,
-        'InstanceProfileArn': 'arn:aws:iam::123456789012:instance-profile/ec2_metadata_mock',
+        'InstanceProfileArn': 'arn:aws:iam::' + account_id + ':instance-profile/' + profile_name,
         'InstanceProfileId':  'AABBCCDDEEFFEEDDCCBBA'
     }
 
